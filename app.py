@@ -7,6 +7,7 @@ from flask import Flask, jsonify
 import models
 
 
+
 from db import db
 from resources.user import blp as UserBlueprint
 from resources.item import blp as ItemBlueprint
