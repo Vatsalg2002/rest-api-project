@@ -1,0 +1,10 @@
+# Flask==2.1.3   #downgraded the verison because latest one have some bugs
+Flask==2.2.5
+Flask-Smorest
+python-dotenv  
+marshmallow
+Flask-SQLAlchemy==3.1.1
+sqlalchemy
+flask-jwt-extended
+passlib
+flask-migrate
