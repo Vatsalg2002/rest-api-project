@@ -7,4 +7,5 @@ Flask-SQLAlchemy==3.1.1
 sqlalchemy
 flask-jwt-extended
 passlib
+gunicorn
 flask-migrate
