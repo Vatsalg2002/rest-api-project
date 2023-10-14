@@ -1,0 +1,1 @@
+from resources.protected import role_required

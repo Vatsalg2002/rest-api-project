@@ -11,7 +11,7 @@ from flask_jwt_extended import (
 ) # for craeting token jwt while user login
 from db import db
 from models import UserModel
-from schemas import UserSchema
+from schemas import UserSchema , LoginSchema
 from blocklist import BLOCKLIST
 
 blp=Blueprint("Users","users",description="Operations on users")
@@ -29,6 +29,7 @@ class UserRegister(MethodView):
         user=UserModel(
             username=user_data["username"],
             password=pbkdf2_sha256.hash(user_data["password"]),
+            role=user_data["role"],
         )
         db.session.add(user)
         db.session.commit()
@@ -38,7 +39,7 @@ class UserRegister(MethodView):
 #for logj user
 @blp.route("/login")
 class UserLogin(MethodView):
-    @blp.arguments(UserSchema)
+    @blp.arguments(LoginSchema)
     def post(self, user_data):
         #check user exits
         user = UserModel.query.filter(
@@ -48,9 +49,9 @@ class UserLogin(MethodView):
         #agar use hai toh hi ye hoag wrna ye lfow abort m chla jaega
         if user and pbkdf2_sha256.verify(user_data["password"], user.password):
             #acces tooen bana ke return krdo
-            access_token = create_access_token(identity=user.id, fresh=True)
+            access_token = create_access_token(identity=user.id,additional_claims={'role': user.role}, fresh=True)
             #refresh token
-            refresh_token = create_refresh_token(user.id)
+            refresh_token = create_refresh_token(user.id,additional_claims={'role': user.role})
             return {"access_token": access_token, "refresh_token": refresh_token}, 200 
  
         abort(401, message="Invalid credentials.")

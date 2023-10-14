@@ -80,14 +80,14 @@ def create_app(db_url=None):
         )
 
     #jwt clains to add extra inf in jwt token
-    @jwt.additional_claims_loader
-    #here identity will be taht thing that we wil pass while creating aa jwt token while login tht will be passed here
-    def add_claims_to_jwt(identity):
-        #rhis info will be added to the jwt token and can be sued later on for special roles
-        #good method to do so is look into db nd check for the role of idenity of input 
-        if identity == 1:
-            return {"is_admin": True}
-        return {"is_admin": False}
+    # @jwt.additional_claims_loader
+    # #here identity will be taht thing that we wil pass while creating aa jwt token while login tht will be passed here
+    # # def add_claims_to_jwt(identity):
+    # #     #rhis info will be added to the jwt token and can be sued later on for special roles
+    # #     #good method to do so is look into db nd check for the role of idenity of input 
+    # #     if identity == 1:
+    # #         return {"is_admin": True}
+    # #     return {"is_admin": False}
     
 
     #custom errros for errors related to autorirztaion usinh jwt token
